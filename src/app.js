@@ -1,6 +1,7 @@
 'use strict';
 
 const errorHandlers = require('./middleware/errors');
+const userRoutes = require('./routes/user');
 
 const express = require('express');
 const cors = require('cors');
@@ -11,10 +12,10 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
-// app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
+app.use(userRoutes);
 
 
 app.get('/', (req, res) => {
