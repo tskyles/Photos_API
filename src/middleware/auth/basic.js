@@ -19,9 +19,9 @@ const basicAuth = async (req, res, next) => {
     req.user = user;
     next();
   }
-  catch(e)
+  catch(error)
   {
-    next(e);
+    next('invalid login: ' + errore);
   }
 
 
