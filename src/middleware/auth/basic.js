@@ -9,7 +9,7 @@ const basicAuth = async (req, res, next) => {
 
   try
   {
-    const authString = req.headers.authorization.split(/\s+/)[1];
+    const authString = req.headers.authorization.split(' ').pop();
     const userCreds = _parseBasicString(authString);
     const user = await User.authenticateBasic(userCreds);
     if(!user){
