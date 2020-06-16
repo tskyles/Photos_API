@@ -40,12 +40,30 @@ User.statics.authenticateBasic = async function(userCreds){
   }
   catch(error)
   {
-    {throw error;}
+    console.error(error);
   }
 }
 
 User.statics.authenticateToken = async function(token){
+  let parsedToken = jwt.verify(token, process.env.JWT_SECRET);
+  console.log(parsedToken);
 
+  let query = {_id: parsedToken._id};
+
+  try
+  {
+    let user = await this.findOne(query);
+    if(user){
+      return user;
+    }
+    else{
+      return null;
+    }
+  }
+  catch(error)
+  {
+    console.error(error);
+  }
 }
 
 User.methods.comparePassword = async function(password){
@@ -54,13 +72,13 @@ User.methods.comparePassword = async function(password){
 
 User.methods.generateToken = function(){
   let token = {
-    id: this._id,
+    _id: this._id,
     // TODO: define capabiliteis
-    capabilities: capabilities[this.role],
+    // capabilities: capabilities[this.role],
     role: this.role,
   };
 
-  return jwt.sign(token, process.env.JWTSECRET);
+  return jwt.sign(token, process.env.JWT_SECRET);
 }
 
 module.exports = mongoose.model('User', User);

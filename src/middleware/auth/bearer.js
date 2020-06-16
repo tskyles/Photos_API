@@ -11,7 +11,17 @@ const bearerAuth = async (req, res, next) => {
   {
     let token = req.headers.authorization.split(' ').pop();
 
-    let user = await User.authenticateToken();
-
+    let user = await User.authenticateToken(token);
+    if(!user) {
+      return res.status(401).json({ message: 'Invalid Authentication Credentials' });
+    }
+    req.user = user;
+    next();
+  }
+  catch(e)
+  {
+    next(e);
   }
 }
+
+module.exports = bearerAuth;
