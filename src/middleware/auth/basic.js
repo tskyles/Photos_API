@@ -11,10 +11,7 @@ const basicAuth = async (req, res, next) => {
   {
     const authString = req.headers.authorization.split(/\s+/)[1];
     const userCreds = _parseBasicString(authString);
-    console.log(userCreds);
-
     const user = await User.authenticateBasic(userCreds);
-
     if(!user){
       return res.status(401).json({message: 'Invalid Authentication Credentials'});
     }
