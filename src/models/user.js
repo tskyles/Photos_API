@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const capabilities = require('../config/role-capabilities');
 
 const User = new mongoose.Schema({
   first_name: {type: String, required: true},
@@ -73,8 +74,7 @@ User.methods.comparePassword = async function(password){
 User.methods.generateToken = function(){
   let token = {
     _id: this._id,
-    // TODO: define capabiliteis
-    // capabilities: capabilities[this.role],
+    capabilities: capabilities[this.role],
     role: this.role,
   };
 
