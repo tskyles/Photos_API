@@ -60,7 +60,7 @@ User.methods.generateToken = function(){
     role: this.role,
   };
 
-  return jwt.sign(token, process.env.JWTSECRET, {expiresIn: process.env.TOKEN_EXPIRES});
+  return jwt.sign(token, process.env.JWTSECRET);
 }
 
 module.exports = mongoose.model('User', User);
