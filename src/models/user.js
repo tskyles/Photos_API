@@ -10,5 +10,9 @@ const User = new mongoose.Schema({
   password: {type: String, required: true},
   role: {type: String, default: 'user', enum: ['admin', 'editor', 'user']},
 })
+// TODO:
+User.statics.authenticateBasic = function(userCreds){
+
+}
 
 module.exports = mongoose.model('User', User);

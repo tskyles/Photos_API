@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/user');
+const basicAuth = require('../middleware/auth/basic');
 
 
 
@@ -16,5 +17,6 @@ const createUser = async (req, res, next) => {
 }
 
 router.post('/api/v1/users', createUser);
+router.post('/api/v1/signin', basicAuth);
 
 module.exports = router;
