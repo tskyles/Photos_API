@@ -3,6 +3,7 @@
 const User = require('../../models/user');
 
 const basicAuth = async (req, res, next) => {
+  console.log(req.headers);
   if (!req.headers.authorization || req.headers.authorization.indexOf('Basic ') === -1){
     return res.status(401).json({message: 'Missing Authorization Header'});
   }
@@ -15,13 +16,13 @@ const basicAuth = async (req, res, next) => {
     if(!user){
       return res.status(401).json({message: 'Invalid Authentication Credentials'});
     }
-
     req.user = user;
+    req.token = user.generateToken();
     next();
   }
   catch(error)
   {
-    next('invalid login: ' + errore);
+    next('invalid login: ' + error);
   }
 
 

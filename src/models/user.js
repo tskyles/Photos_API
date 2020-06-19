@@ -74,6 +74,9 @@ User.methods.comparePassword = async function(password){
 User.methods.generateToken = function(){
   let token = {
     _id: this._id,
+    first_name: this.first_name,
+    last_name: this.last_name,
+    email: this.email,
     capabilities: capabilities[this.role],
     role: this.role,
   };

@@ -10,6 +10,7 @@
     "test-watch": "jest --watchAll --verbose --coverage",
     "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
   },
+  "proxy": "http://localhost:3001",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tskyles/Photos_API.git"
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/tskyles/Photos_API#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
