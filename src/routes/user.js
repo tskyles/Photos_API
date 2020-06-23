@@ -8,8 +8,8 @@ const basicAuth = require('../middleware/auth/basic');
 const bearerAuth = require('../middleware/auth/bearer');
 
 router.post('/api/v1/register', createUser);
-router.post('/api/v1/signin', basicAuth, signInUser);
-router.get('/api/v1/token', bearerAuth);
+router.post('/api/v1/signin/basic', basicAuth, signInUser);
+router.post('/api/v1/signin/bearer', bearerAuth, signInUser);
 
 
 async function createUser(req, res, next){
@@ -20,10 +20,6 @@ async function createUser(req, res, next){
 }
 
 function signInUser(req, res, next){
-  res.cookie('access_token', req.token, {
-    httpOnly: true,
-    // maxAge: 2147483647,
-  });
   const user = {
     first_name: req.user.first_name,
     last_name: req.user.last_name,
@@ -31,6 +27,10 @@ function signInUser(req, res, next){
     role: req.user.role,
     _id: req.user._id
   }
+  // res.cookie('access_token', req.token, {
+  //   httpOnly: true,
+  //   // maxAge: 2147483647,
+  // });
   res.status(200).send({
     user: user,
     token: req.token

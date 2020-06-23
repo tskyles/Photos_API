@@ -47,7 +47,6 @@ User.statics.authenticateBasic = async function(userCreds){
 
 User.statics.authenticateToken = async function(token){
   let parsedToken = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(parsedToken);
 
   let query = {_id: parsedToken._id};
 

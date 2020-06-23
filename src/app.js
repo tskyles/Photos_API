@@ -2,6 +2,7 @@
 
 const errorHandlers = require('./middleware/errors');
 const userRoutes = require('./routes/user');
+const collectionRoutes = require('./routes/collection');
 
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(userRoutes);
-
+app.use(collectionRoutes);
 
 // app.get('/', (req, res) => {
 //   res.send('hello World')
