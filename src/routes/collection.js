@@ -7,7 +7,7 @@ const Collection = require('../models/collection');
 const bearerAuth = require('../middleware/auth/bearer');
 
 router.post('/api/v1/collections', bearerAuth, createCollection);
-router.get('/api/v1/collections', getAllCollections);
+router.get('/api/v1/collections/user/:id', getAllUserCollections);
 
 async function createCollection(req, res, next){
   let duplicateCollection = await Collection.find({created_by: req.body.created_by, name: req.body.name});
@@ -24,9 +24,15 @@ async function createCollection(req, res, next){
 
 }
 
-async function getAllCollections(req, res, next){
-  let collections = await Collection.find({created_by: req._id});
-  console.log(collections);
+async function getAllUserCollections(req, res, next){
+  let collections = await Collection.find({created_by: req.params.id});
+
+  if(!collections){
+    res.status(404).send({message: '404: Resource not found'});
+  }
+  else{
+    res.status(200).send(collections);
+  }
 
 }
 
