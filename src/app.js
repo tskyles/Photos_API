@@ -11,8 +11,8 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 // const router = express.Router();
-// app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
+// app.use(cors());
 app.use(cookieParser())
 app.use(morgan('dev'));
 app.use(express.json());
