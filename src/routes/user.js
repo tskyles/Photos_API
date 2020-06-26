@@ -10,6 +10,11 @@ const bearerAuth = require('../middleware/auth/bearer');
 router.post('/api/v1/register', createUser);
 router.post('/api/v1/signin/basic', basicAuth, signInUser);
 router.post('/api/v1/signin/bearer', bearerAuth, signInUser);
+router.get('/api/v1/signin', checkLoginStatus);
+
+function checkLoginStatus(req, res, next){
+  console.log(req.cookies);
+}
 
 
 async function createUser(req, res, next){
@@ -27,10 +32,11 @@ function signInUser(req, res, next){
     role: req.user.role,
     _id: req.user._id
   }
-  // res.cookie('access_token', req.token, {
-  //   httpOnly: true,
-  //   // maxAge: 2147483647,
-  // });
+  res.cookie('access_token', req.token, {
+    httpOnly: true,
+    maxAge: 604800000,
+  });
+  console.log('cookie', res);
   res.status(200).send({
     user: user,
     token: req.token
