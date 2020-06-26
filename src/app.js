@@ -13,9 +13,7 @@ const app = express();
 // const router = express.Router();
 app.use(cors({ 
   credentials: true, 
-  origin: 'http://localhost:3000',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  origin: 'http://localhost:3001',
 }));
 // app.use(cors());
 app.use(cookieParser())

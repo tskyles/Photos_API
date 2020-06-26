@@ -5,9 +5,10 @@ const router = express.Router();
 
 const Collection = require('../models/collection');
 const bearerAuth = require('../middleware/auth/bearer');
+const verifyCookie = require('../middleware/auth/cookie');
 
 router.post('/api/v1/collections', bearerAuth, createCollection);
-router.get('/api/v1/collections/user/:id', getAllUserCollections);
+router.get('/api/v1/collections/user/:id', verifyCookie, getAllUserCollections);
 
 async function createCollection(req, res, next){
   let duplicateCollection = await Collection.find({created_by: req.body.created_by, name: req.body.name});
